@@ -3,6 +3,7 @@ import cors from 'cors'
 import dotenv from 'dotenv';
 import connectDB from './config/db.js';
 import authRoutes from './routes/authRoutes.js';
+import caseRoutes from './routes/caseRoutes.js';
 
 dotenv.config()
 
@@ -15,6 +16,8 @@ app.use(express.json())
 
 // routes
 app.use('/api/auth',authRoutes);
+app.use('/api/cases',caseRoutes);
+
 
 // health check route
 app.get('/health',(req,res)=>{
