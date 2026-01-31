@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Navbar } from '@/components/Navbar';
+import { Navbar } from '@/components/NavBar';
 import { useCaseStore } from '@/store/caseStore';
 import api from '@/services/api';
 import { Button } from '@/components/ui/button';
