@@ -1,10 +1,18 @@
 import React from 'react'
-import { Button } from "@/components/ui/button"
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import DashboardPage from './pages/DashboardPage'
+import LoginPage from './pages/LoginPage'
+import { Toaster } from 'sonner'
+
 const App = () => {
   return (
-    <div className="flex min-h-svh flex-col items-center justify-center">
-      <Button className='bg-blue'>Click me</Button>
-    </div>
+    <BrowserRouter>
+    <Routes>
+      <Route path='/login' element={<LoginPage/>}/>
+      <Route path='/' element={<DashboardPage/>}/>
+    </Routes>
+    <Toaster position='top-right' closeButton={true}/>
+    </BrowserRouter>
   )
 }
 
