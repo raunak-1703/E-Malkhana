@@ -42,7 +42,9 @@ const caseSchema = new mongoose.Schema(
       type: String,
       enum: ["PENDING", "DISPOSED"],
       default: "PENDING",
+      set: v => v.toUpperCase()
     },
+  
   },
   { timestamps: true }
 );

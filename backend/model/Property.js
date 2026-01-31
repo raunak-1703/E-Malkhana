@@ -12,7 +12,8 @@ const propertySchema = new mongoose.Schema({
     },
     belongingTo:{
         type:String,
-        enum:["Accused", "Complainant", "Unknown"],
+        enum:["accused", "complainant", "unknown"],
+        set: v => v.toLowerCase(),
         required:true,
     },
     nature:{
@@ -40,8 +41,9 @@ const propertySchema = new mongoose.Schema({
     },
     status: {
       type: String,
-      enum: ["IN_CUSTODY", "DISPOSED"],
-      default: "IN_CUSTODY",
+      enum: ["IN CUSTODY", "DISPOSED"],
+      default: "IN CUSTODY",
+      set: v => v.toUpperCase()
     },
 },{timestamps:true})
 

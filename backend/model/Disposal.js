@@ -8,15 +8,12 @@ const disposalSchema = new mongoose.Schema({
     },
     disposalType:{
         type:String,
-        enum:['Returned', 'Destroyed','Auctioned','Court Custody'],
+        enum:['returned', 'destroyed','auctioned','court custody'],
+        set: v => v.toLowerCase(),
         required:true,
     },
     courtOrderReference:{
         type:String,
-        required:true,
-    },
-    disposalDate:{
-        type:Date,
         required:true,
     },
     remarks:{

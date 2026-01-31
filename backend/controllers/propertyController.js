@@ -1,3 +1,4 @@
+import CustodyLog from '../model/custodyLog.js';
 import Property from '../model/Property.js';
 import QRCode from 'qrcode';
 
@@ -40,6 +41,14 @@ export const addProperty = async (req,res)=>{
       description,
       photoUrl,
       qrCode,
+    })
+
+    // adding a custody Log
+    await CustodyLog.create({
+        propertyId:property._id,
+        from:'Crime Scene',
+        to:'Malkhana',
+        purpose:'Initial Seizure and Storage'
     })
 
     res.status(201).json({

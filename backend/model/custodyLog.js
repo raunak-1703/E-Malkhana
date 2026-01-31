@@ -3,7 +3,7 @@ const custodySchema = new mongoose.Schema({
     propertyId:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'Property',
-        reqyured:true,
+        reqiured:true,
     },
     from:{
         type:String,
@@ -15,10 +15,6 @@ const custodySchema = new mongoose.Schema({
     },
     purpose:{
         type:String,
-        required:true,
-    },
-    dateTime:{
-        type:Date,
         required:true,
     },
     remarks:{

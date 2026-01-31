@@ -2,9 +2,9 @@ import CustodyLog from "../model/custodyLog.js";
 
 export const addCustodyLog = async(req,res)=>{
     try {
-        const {propertyId,from,to,purpose,dateTime,remarks} = req.body;
+        const {propertyId,from,to,purpose,remarks} = req.body;
 
-        if (!propertyId || !from || !to || !purpose || !dateTime){
+        if (!propertyId || !from || !to || !purpose){
             return res.status(400).json({message:'All required fields must be filled'})
         }
 
@@ -13,7 +13,6 @@ export const addCustodyLog = async(req,res)=>{
             from,
             to,
             purpose,
-            dateTime,
             remarks,
         })
 

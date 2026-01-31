@@ -33,7 +33,6 @@ const CaseListPage = () => {
 
         const navigate = useNavigate()
         const setSelectedCase = useCaseStore((state)=>state.setSelectedCase);
-        console.log(cases)
         const handleSearch = async (e)=>{
             e.preventDefault();
             setLoading(true);
@@ -45,6 +44,19 @@ const CaseListPage = () => {
                             crimeYear: crimeYear || undefined,
                         }
                 })
+                setCases(res.data);
+            } catch (error) {
+                console.error('Search failed',error)
+            } finally{
+                setLoading(false);
+            }
+        }
+
+        const fetchAll = async (e)=>{
+            e.preventDefault();
+            setSearched(true);
+            try {
+                const res = await api.get('/cases')
                 setCases(res.data);
             } catch (error) {
                 console.error('Search failed',error)
@@ -79,7 +91,7 @@ return (
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSearch} className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div className="space-y-2">
                   <Label>Crime Number</Label>
                   <Input
@@ -103,12 +115,24 @@ return (
                   <Button
                     type="submit"
                     className="w-full bg-slate-900 hover:bg-slate-800"
-                    disabled={loading}
+                    disabled={loading ||(!crimeNumber && !crimeYear)}
                   >
                     <Search className="w-4 h-4 mr-2" />
                     {loading ? 'Searching...' : 'Search'}
                   </Button>
                 </div>
+
+                <div className="flex items-end">
+                  <Button
+                    type="button"
+                    className="w-full bg-slate-900 hover:bg-slate-800"
+                    onClick={fetchAll}
+                  >
+                    <Search className="w-4 h-4 mr-2" />
+                    Get All Cases
+                  </Button>
+                </div>
+                
               </div>
             </form>
           </CardContent>
