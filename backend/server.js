@@ -6,7 +6,7 @@ import authRoutes from './routes/authRoutes.js';
 import caseRoutes from './routes/caseRoutes.js';
 import propertyRoutes from './routes/propertyRoutes.js';
 import custodyRoutes from './routes/custodyRoutes.js';
-
+import disposalRoutes from './routes/disposalRoutes.js';
 dotenv.config()
 
 const app = express();
@@ -21,6 +21,7 @@ app.use('/api/auth',authRoutes);
 app.use('/api/cases',caseRoutes);
 app.use('/api/properties', propertyRoutes);
 app.use('/api/custody', custodyRoutes);
+app.use('/api/disposal',disposalRoutes)
 
 
 // health check route
