@@ -1,10 +1,10 @@
-import CustodyLog from '../model/custodyLog.js';
-import Property from '../model/Property.js';
-import QRCode from 'qrcode';
+import CustodyLog from "../model/custodyLog.js";
+import Property from "../model/Property.js";
+import QRCode from "qrcode";
 
-export const addProperty = async (req,res)=>{
-    try {
-        const {
+export const addProperty = async (req, res) => {
+  try {
+    const {
       caseId,
       category,
       belongingTo,
@@ -27,9 +27,18 @@ export const addProperty = async (req,res)=>{
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    // Generating QR code data 
-    const qrData = `PROPERTY-${Date.now()}`;
-    const qrCode = await QRCode.toDataURL(qrData);
+    // Generating QR code data
+    const qrPayload = {
+      type: "E-MALKHANA-PROPERTY",
+      category,
+      belongingTo,
+      nature,
+      quantity,
+      caseId,
+      generatedAt: new Date().toISOString(),
+    };
+
+    const qrCode = await QRCode.toDataURL(JSON.stringify(qrPayload));
 
     const property = await Property.create({
       caseId,
@@ -41,22 +50,22 @@ export const addProperty = async (req,res)=>{
       description,
       photoUrl,
       qrCode,
-    })
+    });
 
     // adding a custody Log
     await CustodyLog.create({
-        propertyId:property._id,
-        from:'Crime Scene',
-        to:'Malkhana',
-        purpose:'Initial Seizure and Storage'
-    })
+      propertyId: property._id,
+      from: "Crime Scene",
+      to: "Malkhana",
+      purpose: "Initial Seizure and Storage",
+    });
 
     res.status(201).json({
-        message:'Property added successfully',
-        property,
-    })
-    } catch (error) {
-        console.log(error.message)
-        res.status(500).json({message:'Server error'});
-    }
-}
+      message: "Property added successfully",
+      property,
+    });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ message: "Server error" });
+  }
+};
