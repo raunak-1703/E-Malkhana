@@ -5,6 +5,7 @@ import connectDB from './config/db.js';
 import authRoutes from './routes/authRoutes.js';
 import caseRoutes from './routes/caseRoutes.js';
 import propertyRoutes from './routes/propertyRoutes.js';
+import custodyRoutes from './routes/custodyRoutes.js';
 
 dotenv.config()
 
@@ -19,6 +20,7 @@ app.use(express.json())
 app.use('/api/auth',authRoutes);
 app.use('/api/cases',caseRoutes);
 app.use('/api/properties', propertyRoutes);
+app.use('/api/custody', custodyRoutes);
 
 
 // health check route
