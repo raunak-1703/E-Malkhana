@@ -4,10 +4,10 @@ export const getDashboardStats = async (req,res)=>{
     try {
         const totalCases = await Case.countDocuments();
         const pendingCases = await Case.countDocuments({
-            status:'Pending'
+            status:'PENDING'
         });
         const disposedCases = await Case.countDocuments({
-            status:'Disposed'
+            status:'DISPOSED'
         });
 
         res.status(200).json({
