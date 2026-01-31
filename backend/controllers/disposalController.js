@@ -1,6 +1,6 @@
 import Disposal from "../model/Disposal.js";
 import Property from "../model/Property.js";
-import Case from "../model/case.js";
+import Case from "../model/Case.js";
 
 export const disposeProperty = async (req,res)=>{
     try {
