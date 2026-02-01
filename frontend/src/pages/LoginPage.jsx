@@ -1,43 +1,49 @@
-import React from 'react'
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
-import { useAuthStore } from '../store/authStore';
-import api from '../services/api';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Shield } from 'lucide-react';
-import { toast } from 'sonner';
+import React from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuthStore } from "../store/authStore";
+import api from "../services/api";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Shield, Info } from "lucide-react";
+import { toast } from "sonner";
 
 const LoginPage = () => {
-    const [username,setUsername] = useState('');
-    const [password,setPassword] = useState('');
-    const [loading,setLoading] = useState(false);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
-    const navigate = useNavigate();
-    const login = useAuthStore((state)=>state.login);
+  const navigate = useNavigate();
+  const login = useAuthStore((state) => state.login);
 
-    const handleSubmit = async(e)=>{
-        e.preventDefault();
-        setLoading(true);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
 
-        try {
-            const res = await api.post('/auth/login',{
-                username,
-                password
-            })
-            login(res.data.token);
-            toast.success('Login Successfull');
-            navigate('/')
-        } catch (error) {
-            toast.error('Invalid username or password');
-        } finally{
-            setLoading(false)
-        }
+    try {
+      const res = await api.post("/auth/login", {
+        username,
+        password,
+      });
+      login(res.data.token);
+      toast.success("Login Successfull");
+      navigate("/");
+    } catch (error) {
+      toast.error("Invalid username or password");
+    } finally {
+      setLoading(false);
     }
+  };
   return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50">
+    <div className="min-h-screen flex items-center justify-center bg-slate-50">
       <div className="w-full max-w-md px-4">
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-slate-900 rounded-lg mb-4">
@@ -50,27 +56,50 @@ const LoginPage = () => {
         <Card>
           <CardHeader>
             <CardTitle>Officer Login</CardTitle>
-            <CardDescription>Enter your credentials to access the system</CardDescription>
+            <CardDescription>
+              Enter your credentials to access the system
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
                 <Label>Username</Label>
-                <Input value={username} onChange={(e) => setUsername(e.target.value)} />
+                <Input
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
               </div>
               <div className="space-y-2">
                 <Label>Password</Label>
-                <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                <Input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
               </div>
-              <Button className="w-full" disabled={loading}>
-                {loading ? 'Logging in...' : 'Login'}
+              <Button className="w-full my-1" disabled={loading}>
+                {loading ? "Logging in..." : "Login"}
               </Button>
             </form>
+
+            {/* Demo Credentials Info Box */}
+            <div className="p-3 bg-blue-50 border border-blue-100 rounded-md">
+              <div className="flex items-center gap-2 mb-1">
+                <Info className="w-4 h-4 text-blue-600" />
+                <span className="text-sm font-semibold text-blue-900">
+                  Demo Access
+                </span>
+              </div>
+              <p className="text-xs text-blue-700">
+                <strong>Username:</strong> admin <br />
+                <strong>Password:</strong> admin123
+              </p>
+            </div>
           </CardContent>
         </Card>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default LoginPage
+export default LoginPage;
