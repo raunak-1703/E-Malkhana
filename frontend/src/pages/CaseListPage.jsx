@@ -54,10 +54,10 @@ const CaseListPage = () => {
 
         const fetchAll = async (e)=>{
             e.preventDefault();
-            setSearched(true);
             try {
                 const res = await api.get('/cases')
                 setCases(res.data);
+                setSearched(true);
             } catch (error) {
                 console.error('Search failed',error)
             } finally{
